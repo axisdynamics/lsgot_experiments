@@ -1,0 +1,802 @@
+{
+  "experiment": "H4_rev_mia",
+  "model": "google/gemma-4-31B-it",
+  "layer_key": "L30",
+  "layer_indices": [
+    29
+  ],
+  "sigma_key": "medium",
+  "sigma_value": 6.066457348560588,
+  "t_inj_values": [
+    50,
+    128,
+    200
+  ],
+  "n_prompts": 20,
+  "groups": [
+    "axis",
+    "generic_long",
+    "generic_short",
+    "vanilla"
+  ],
+  "aggregated": {
+    "axis": {
+      "50": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 22.65,
+          "std": 5.960494945891658,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 455.86149444580076,
+          "std": 91.52458648623347,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.004331344366073608,
+          "std": 0.0017231850314502702,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9942241251468659,
+          "std": 0.0016766038736369556,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9985554695129395,
+          "std": 0.0002854055956931975,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.07833220849257858,
+          "std": 0.20918951753659132,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 1.9467949937595013,
+          "std": 0.2045945768118475,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.0251272022520794,
+          "std": 0.13331033839435177,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 9.083361153463716,
+          "std": 5.213132535048549,
+          "n": 20
+        }
+      },
+      "128": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 20.1,
+          "std": 4.846648326421054,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 458.62941284179686,
+          "std": 97.17556747143271,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.004095301032066345,
+          "std": 0.002477142465462216,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9899259746074677,
+          "std": 0.0025521485730057567,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.994021275639534,
+          "std": 0.001374131160878865,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.04462361766366515,
+          "std": 0.3394927186414679,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 1.971105332854664,
+          "std": 0.35206443829043027,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.015728950518329,
+          "std": 0.2142247736132,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 11.549442917108536,
+          "std": 5.0975028848093675,
+          "n": 20
+        }
+      },
+      "200": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 16.2,
+          "std": 7.88416133777081,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 455.30861206054686,
+          "std": 100.72505675198195,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0021926462650299072,
+          "std": 0.007111858968391455,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9739761680364609,
+          "std": 0.00962795755734534,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9761688143014908,
+          "std": 0.014266133547075703,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.07616201018118468,
+          "std": 5.948478143299316,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 3.028007375415634,
+          "std": 4.195218287254547,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 3.1041693855968187,
+          "std": 4.189490698729874,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 14.829492105756483,
+          "std": 6.730676222054574,
+          "n": 20
+        }
+      }
+    },
+    "generic_long": {
+      "50": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 30.7,
+          "std": 7.315052973150639,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 432.9814178466797,
+          "std": 81.89674445344993,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0046149522066116335,
+          "std": 0.003189244673223188,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9934589892625809,
+          "std": 0.0031963017706245567,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9980739414691925,
+          "std": 0.0006967779075975934,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": 0.008290758672833043,
+          "std": 0.2498165862548254,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 2.015425218439181,
+          "std": 0.1514930363078022,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.007134459766348,
+          "std": 0.16717198048680906,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 8.761303433168282,
+          "std": 3.339186956478579,
+          "n": 20
+        }
+      },
+      "128": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 21.4,
+          "std": 7.137226352022191,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 449.0698181152344,
+          "std": 76.09667276975513,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0028615206480026244,
+          "std": 0.003316295678295218,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.989363232254982,
+          "std": 0.004011536546525166,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9922247529029846,
+          "std": 0.002567462789330912,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.009679032762271,
+          "std": 0.27256574419502355,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 1.9728390277271033,
+          "std": 0.1880423125317245,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 1.9825180604893742,
+          "std": 0.29711516351182127,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 6.729561251401901,
+          "std": 4.295281433709111,
+          "n": 20
+        }
+      },
+      "200": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 16.4,
+          "std": 5.122499389946279,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 450.52076568603513,
+          "std": 76.131634790688,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0020546257495880128,
+          "std": 0.005465368872826654,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9768197327852249,
+          "std": 0.005398910981816233,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.978874358534813,
+          "std": 0.005376638865533825,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": 0.24782327784464014,
+          "std": 6.188557353652761,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 3.98642954191793,
+          "std": 5.7082360711802655,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 3.738606264073289,
+          "std": 5.786611207007511,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 10.4317077091762,
+          "std": 6.0881674441014235,
+          "n": 20
+        }
+      }
+    },
+    "generic_short": {
+      "50": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 32.55,
+          "std": 6.644358509291925,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 434.7322174072266,
+          "std": 81.34056671297878,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.005272170901298523,
+          "std": 0.00467883377398231,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9926969796419144,
+          "std": 0.004275227599926763,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9979691505432129,
+          "std": 0.000844751965796828,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.031867323329367314,
+          "std": 0.17045280916685973,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 2.020310815823065,
+          "std": 0.1771742813752572,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.0521781391524323,
+          "std": 0.15573895792674172,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 9.244672919708547,
+          "std": 6.216708584300503,
+          "n": 20
+        }
+      },
+      "128": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 25.4,
+          "std": 7.4859869088851605,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 461.51648101806643,
+          "std": 79.42256727406989,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0038808047771453857,
+          "std": 0.005500854943317658,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9878550976514816,
+          "std": 0.0048537236511927645,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.991735902428627,
+          "std": 0.004036891070730649,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": 0.05107295974326263,
+          "std": 0.2868014951312814,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 2.0524827284052916,
+          "std": 0.240445310442542,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.0014097686620285,
+          "std": 0.24112505943265644,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 6.795178878307342,
+          "std": 4.127115769598736,
+          "n": 20
+        }
+      },
+      "200": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 16.0,
+          "std": 4.219004621945797,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 436.17706909179685,
+          "std": 93.94450707587737,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.001140260696411133,
+          "std": 0.005038791214281496,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.971137598156929,
+          "std": 0.013310171322126727,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9722778588533402,
+          "std": 0.01500388296935994,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.8504689184730416,
+          "std": 4.214607768049545,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 4.044013810104838,
+          "std": 5.679513845900563,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 4.894482728577882,
+          "std": 6.760886759491196,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 10.917478220803396,
+          "std": 4.817229440126564,
+          "n": 20
+        }
+      }
+    },
+    "vanilla": {
+      "50": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 30.15,
+          "std": 8.063963045550246,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 459.3135025024414,
+          "std": 73.11822204116221,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.00472220778465271,
+          "std": 0.003946951639815559,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.993233597278595,
+          "std": 0.0038116452877977884,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9979558050632477,
+          "std": 0.0006907545369855915,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": -0.003247181970614954,
+          "std": 0.15755319402337253,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 2.0477887820321685,
+          "std": 0.19122357040499444,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.051035964002783,
+          "std": 0.20376074599604233,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 7.274866241158792,
+          "std": 4.358461551184547,
+          "n": 20
+        }
+      },
+      "128": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 21.5,
+          "std": 7.625614729318548,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 463.6085601806641,
+          "std": 79.30250051328318,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0036666393280029297,
+          "std": 0.004737283900121987,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9879968941211701,
+          "std": 0.005523811694146222,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.991663533449173,
+          "std": 0.0047147182674106974,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": 0.005931672796947207,
+          "std": 0.18837115441149715,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 2.006991049394732,
+          "std": 0.2531700339128571,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 2.0010593765977847,
+          "std": 0.26460068726483355,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 7.168426072597503,
+          "std": 5.03138437616361,
+          "n": 20
+        }
+      },
+      "200": {
+        "n_total": 20,
+        "n_ok": 20,
+        "recovery_rate": 1.0,
+        "tau_tokens": {
+          "mean": 16.75,
+          "std": 4.334454983039967,
+          "n": 20
+        },
+        "displacement_l2": {
+          "mean": 447.4049072265625,
+          "std": 76.01086498378801,
+          "n": 20
+        },
+        "recovery_gap": {
+          "mean": 0.0006577849388122558,
+          "std": 0.007992190387244566,
+          "n": 20
+        },
+        "centroid_cos_post_perturbed": {
+          "mean": 0.9723572075366974,
+          "std": 0.01274915435947215,
+          "n": 20
+        },
+        "centroid_cos_post_baseline": {
+          "mean": 0.9730149924755096,
+          "std": 0.019300009165166873,
+          "n": 20
+        },
+        "sampen_delta": {
+          "mean": 1.2151740088530176,
+          "std": 4.080358183302529,
+          "n": 20
+        },
+        "sampen_post": {
+          "mean": 4.9676527946460824,
+          "std": 6.746758881682014,
+          "n": 20
+        },
+        "sampen_base": {
+          "mean": 3.7524787857930635,
+          "std": 5.731515264578969,
+          "n": 20
+        },
+        "w1_norms_post": {
+          "mean": 11.758110741206577,
+          "std": 5.4762018771502055,
+          "n": 20
+        }
+      }
+    }
+  },
+  "comparison_by_t_inj": {
+    "50": {
+      "tau_tokens": {
+        "axis": 22.65,
+        "generic_long": 30.7,
+        "generic_short": 32.55,
+        "vanilla": 30.15,
+        "delta_axis_minus_generic_long": -8.05,
+        "delta_generic_long_minus_generic_short": -1.8499999999999979,
+        "delta_axis_minus_vanilla": -7.5
+      },
+      "recovery_rate": {
+        "axis": 1.0,
+        "generic_long": 1.0,
+        "generic_short": 1.0,
+        "vanilla": 1.0,
+        "delta_axis_minus_generic_long": 0.0,
+        "delta_generic_long_minus_generic_short": 0.0,
+        "delta_axis_minus_vanilla": 0.0
+      },
+      "recovery_gap": {
+        "axis": 0.004331344366073608,
+        "generic_long": 0.0046149522066116335,
+        "generic_short": 0.005272170901298523,
+        "vanilla": 0.00472220778465271,
+        "delta_axis_minus_generic_long": -0.0002836078405380254,
+        "delta_generic_long_minus_generic_short": -0.0006572186946868898,
+        "delta_axis_minus_vanilla": -0.0003908634185791019
+      },
+      "sampen_delta": {
+        "axis": -0.07833220849257858,
+        "generic_long": 0.008290758672833043,
+        "generic_short": -0.031867323329367314,
+        "vanilla": -0.003247181970614954,
+        "delta_axis_minus_generic_long": -0.08662296716541162,
+        "delta_generic_long_minus_generic_short": 0.040158082002200356,
+        "delta_axis_minus_vanilla": -0.07508502652196362
+      },
+      "w1_norms_post": {
+        "axis": 9.083361153463716,
+        "generic_long": 8.761303433168282,
+        "generic_short": 9.244672919708547,
+        "vanilla": 7.274866241158792,
+        "delta_axis_minus_generic_long": 0.3220577202954349,
+        "delta_generic_long_minus_generic_short": -0.48336948654026557,
+        "delta_axis_minus_vanilla": 1.8084949123049245
+      },
+      "displacement_l2": {
+        "axis": 455.86149444580076,
+        "generic_long": 432.9814178466797,
+        "generic_short": 434.7322174072266,
+        "vanilla": 459.3135025024414,
+        "delta_axis_minus_generic_long": 22.880076599121082,
+        "delta_generic_long_minus_generic_short": -1.750799560546909,
+        "delta_axis_minus_vanilla": -3.4520080566406364
+      }
+    },
+    "128": {
+      "tau_tokens": {
+        "axis": 20.1,
+        "generic_long": 21.4,
+        "generic_short": 25.4,
+        "vanilla": 21.5,
+        "delta_axis_minus_generic_long": -1.2999999999999972,
+        "delta_generic_long_minus_generic_short": -4.0,
+        "delta_axis_minus_vanilla": -1.3999999999999986
+      },
+      "recovery_rate": {
+        "axis": 1.0,
+        "generic_long": 1.0,
+        "generic_short": 1.0,
+        "vanilla": 1.0,
+        "delta_axis_minus_generic_long": 0.0,
+        "delta_generic_long_minus_generic_short": 0.0,
+        "delta_axis_minus_vanilla": 0.0
+      },
+      "recovery_gap": {
+        "axis": 0.004095301032066345,
+        "generic_long": 0.0028615206480026244,
+        "generic_short": 0.0038808047771453857,
+        "vanilla": 0.0036666393280029297,
+        "delta_axis_minus_generic_long": 0.0012337803840637208,
+        "delta_generic_long_minus_generic_short": -0.0010192841291427612,
+        "delta_axis_minus_vanilla": 0.00042866170406341553
+      },
+      "sampen_delta": {
+        "axis": -0.04462361766366515,
+        "generic_long": -0.009679032762271,
+        "generic_short": 0.05107295974326263,
+        "vanilla": 0.005931672796947207,
+        "delta_axis_minus_generic_long": -0.03494458490139415,
+        "delta_generic_long_minus_generic_short": -0.060751992505533634,
+        "delta_axis_minus_vanilla": -0.05055529046061236
+      },
+      "w1_norms_post": {
+        "axis": 11.549442917108536,
+        "generic_long": 6.729561251401901,
+        "generic_short": 6.795178878307342,
+        "vanilla": 7.168426072597503,
+        "delta_axis_minus_generic_long": 4.819881665706634,
+        "delta_generic_long_minus_generic_short": -0.06561762690544093,
+        "delta_axis_minus_vanilla": 4.3810168445110325
+      },
+      "displacement_l2": {
+        "axis": 458.62941284179686,
+        "generic_long": 449.0698181152344,
+        "generic_short": 461.51648101806643,
+        "vanilla": 463.6085601806641,
+        "delta_axis_minus_generic_long": 9.559594726562466,
+        "delta_generic_long_minus_generic_short": -12.446662902832031,
+        "delta_axis_minus_vanilla": -4.979147338867222
+      }
+    },
+    "200": {
+      "tau_tokens": {
+        "axis": 16.2,
+        "generic_long": 16.4,
+        "generic_short": 16.0,
+        "vanilla": 16.75,
+        "delta_axis_minus_generic_long": -0.1999999999999993,
+        "delta_generic_long_minus_generic_short": 0.3999999999999986,
+        "delta_axis_minus_vanilla": -0.5500000000000007
+      },
+      "recovery_rate": {
+        "axis": 1.0,
+        "generic_long": 1.0,
+        "generic_short": 1.0,
+        "vanilla": 1.0,
+        "delta_axis_minus_generic_long": 0.0,
+        "delta_generic_long_minus_generic_short": 0.0,
+        "delta_axis_minus_vanilla": 0.0
+      },
+      "recovery_gap": {
+        "axis": 0.0021926462650299072,
+        "generic_long": 0.0020546257495880128,
+        "generic_short": 0.001140260696411133,
+        "vanilla": 0.0006577849388122558,
+        "delta_axis_minus_generic_long": 0.00013802051544189444,
+        "delta_generic_long_minus_generic_short": 0.0009143650531768799,
+        "delta_axis_minus_vanilla": 0.0015348613262176514
+      },
+      "sampen_delta": {
+        "axis": -0.07616201018118468,
+        "generic_long": 0.24782327784464014,
+        "generic_short": -0.8504689184730416,
+        "vanilla": 1.2151740088530176,
+        "delta_axis_minus_generic_long": -0.3239852880258248,
+        "delta_generic_long_minus_generic_short": 1.0982921963176817,
+        "delta_axis_minus_vanilla": -1.2913360190342023
+      },
+      "w1_norms_post": {
+        "axis": 14.829492105756483,
+        "generic_long": 10.4317077091762,
+        "generic_short": 10.917478220803396,
+        "vanilla": 11.758110741206577,
+        "delta_axis_minus_generic_long": 4.397784396580283,
+        "delta_generic_long_minus_generic_short": -0.4857705116271962,
+        "delta_axis_minus_vanilla": 3.0713813645499055
+      },
+      "displacement_l2": {
+        "axis": 455.30861206054686,
+        "generic_long": 450.52076568603513,
+        "generic_short": 436.17706909179685,
+        "vanilla": 447.4049072265625,
+        "delta_axis_minus_generic_long": 4.78784637451173,
+        "delta_generic_long_minus_generic_short": 14.343696594238281,
+        "delta_axis_minus_vanilla": 7.903704833984364
+      }
+    }
+  }
+}
