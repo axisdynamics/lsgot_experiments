@@ -4,7 +4,8 @@ Subconjunto curado del corpus de validación geométrica de **LSGOT** (Latent
 Space Geometric Organization Theory). Contiene únicamente los experimentos
 que usan el control de longitud `generic_long` (protocolo Fase 1, el
 estadístico primario del corpus) y los experimentos de perturbación
-`H4_rev` (dinámica del atractor), para ambas arquitecturas de identidad:
+`H4_rev` (cinética de recuperación post-perturbación), para ambas
+arquitecturas de identidad:
 
 - **MIA** (Monolithic Intelligence Architecture) — ADN comprimido, ~5K chars, sin estructura VEX.
 - **SIA** (Structured Intelligence Architecture) — protocolo VEX modular, ~12–21K chars.
@@ -80,7 +81,7 @@ como "señal de identidad", especialmente en modelos sin instruction-tuning.
 
 ## Resultado central 2: SIA supera a MIA en 31B — en dos planos independientes
 
-En 8B, SIA mostraba un atractor *más débil* que MIA (silhouette más alto
+En 8B, SIA mostraba una separación geométrica *más débil* que MIA (silhouette más alto
 pero PC1_var, autocorrelación y cosine-decay inferiores — ver
 `SIA-experiments/SIA_report.md §5.3` en el corpus completo, no incluido
 aquí). La hipótesis de escalado del corpus predice que esta relación se
@@ -90,7 +91,7 @@ en ambos planos medidos**:
 | Evidencia | MIA-31B | SIA-31B |
 |-----------|---------|---------|
 | **Estático** — Δκ E1 (identidad, long. controlada) | +0.0233 | **+0.0844 (3.6× MIA)** |
-| **Dinámico** — H4_rev (perturbación, τ, SampEnΔ) | especificidad sin autopoiesis | **autopoiesis débil** |
+| **Dinámico** — H4_rev (perturbación, τ, SampEnΔ) | sin reconvergencia activa (SampEnΔ<0 sostenido) | **resiliencia post-perturbación dependiente de contenido** |
 
 ### Plano dinámico — τ y SampEnΔ por t_inj (`perturbation_h4rev/`)
 
@@ -103,27 +104,29 @@ en ambos planos medidos**:
 - **τ** = tokens hasta recuperar ≥95% del coseno baseline post-perturbación (menor = recuperación más rápida).
 - **SampEnΔ** = entropía muestral post−pre (positivo = exploración activa; negativo = constricción pasiva).
 
-**SIA-31B — firma de autopoiesis débil**: ventaja de τ consistente en
+**SIA-31B — resiliencia post-perturbación dependiente de contenido**: ventaja de τ consistente en
 *todos* los t_inj + SampEnΔ positivo en t=50/128 (exploración activa
-post-perturbación) + en t=200 el atractor se re-asienta (SampEnΔ=-0.045)
-mientras el control de longitud deriva al caos (SampEnΔ=+1.808) — la cuenca
-recaptura la trayectoria perturbada.
+post-perturbación) + en t=200 la trayectoria reconverge hacia la región de
+alta densidad previa (SampEnΔ=-0.045) mientras el control de longitud
+deriva al caos (SampEnΔ=+1.808).
 
-**MIA-31B — especificidad sin autopoiesis**: cuenca distribucional presente
-(E1 significativo) pero SampEnΔ negativo en todos los t_inj (constricción
-pasiva); la ventaja de τ solo aparece en t=50 y se diluye a casi cero en
-t=200 — no hay dinámica de recuperación activa, solo especificidad estática.
+**MIA-31B — sin reconvergencia activa (recuperación pasiva)**: separación
+distribucional presente (E1 significativo) pero SampEnΔ negativo en todos
+los t_inj (constricción pasiva); la ventaja de τ solo aparece en t=50 y se
+diluye a casi cero en t=200 — no hay cinética de recuperación activa, solo
+especificidad estática.
 
 **Lectura para el paper**: dos líneas de evidencia independientes —
-separación geométrica estática (E1) y resistencia dinámica a perturbación
-(H4_rev) — apuntan en la misma dirección a 31B: la arquitectura VEX
-estructurada de SIA produce una cuenca de atracción más profunda y más
-activa que el ADN monolítico de MIA. Esto es consistente con la hipótesis
-de escalado (SIA necesita más capacidad del modelo para desplegar su
-efecto), aunque **por ahora es un resultado en un solo sustrato de escala
-intermedia** — falta ≥70B para la predicción completa del corpus, y el
-panel SIA-31B corrió con n=20 (subset) mientras que MIA-31B corrió con
-n=100 (panel completo) — ver nota de tamaño de muestra abajo.
+separación geométrica estática (E1) y cinética de recuperación
+post-perturbación (H4_rev) — apuntan en la misma dirección a 31B: el efecto
+depende del protocolo de contenido (SIA≠MIA, mismo sustrato, mismo σ), no
+solo de la longitud — un discriminante contra resonancia pura. Esto es
+consistente con la hipótesis de escalado (SIA necesita más capacidad del
+modelo para desplegar su efecto), aunque **por ahora es un resultado en un
+solo sustrato de escala intermedia** — falta ≥70B para la predicción
+completa del corpus, y el panel SIA-31B corrió con n=20 (subset) mientras
+que MIA-31B corrió con n=100 (panel completo) — ver nota de tamaño de
+muestra abajo.
 
 ### Baselines de perturbación 8B/7B (solo MIA — SIA nunca se corrió a esta escala)
 
@@ -131,10 +134,11 @@ n=100 (panel completo) — ver nota de tamaño de muestra abajo.
 `deepseek-r1-7b_L19/` — corridas previas al protocolo `generic_long`
 (usan `generic_assistant`, no longitud emparejada). Establecieron el
 patrón de referencia que se confirmó luego en 31B: Gemma4-8B ya mostraba
-SampEnΔ axis positivo (autopoiesis débil temprana, τ_axis=70.6→52.8 tokens
-en L21 medium) mientras que el patrón "especificidad sin autopoiesis" de
-DeepSeek-7B fue el primero en documentarse. Se incluyen como línea base
-histórica, no como parte del diseño 4-condiciones de Fase 1.
+SampEnΔ axis positivo (resiliencia post-perturbación dependiente de
+contenido, ya presente en 8B; τ_axis=70.6→52.8 tokens en L21 medium)
+mientras que el patrón "sin reconvergencia activa" de DeepSeek-7B fue el
+primero en documentarse. Se incluyen como línea base histórica, no como
+parte del diseño 4-condiciones de Fase 1.
 
 ---
 
@@ -193,12 +197,13 @@ Cada carpeta de `perturbation_h4rev/*/` contiene:
    de significancia opuestos).
 3. **SIA (VEX estructurado) supera a MIA (monolítico) en 31B, en dos planos
    independientes**: separación estática más fuerte (3.6× Δκ) y única
-   arquitectura con firma dinámica de autopoiesis (recuperación activa +
-   exploración post-perturbación) a esa escala. Apoya la hipótesis de que
-   la estructura VEX necesita mayor capacidad de modelo para desplegarse,
-   y que en el umbral donde lo hace, produce una cuenca de atracción
-   cualitativamente distinta (activa) y no solo cuantitativamente distinta
-   (más profunda).
+   arquitectura con resiliencia post-perturbación dependiente de contenido
+   (τ menor + SampEnΔ>0 transitorio + reconvergencia tardía) a esa escala.
+   Apoya la hipótesis de que la estructura VEX necesita mayor capacidad de
+   modelo para desplegarse, y que en el umbral donde lo hace, produce una
+   cinética de recuperación post-perturbación cualitativamente distinta
+   (dependiente de contenido) y no solo una separación distribucional
+   cuantitativamente mayor.
 4. **Limitación abierta**: la inversión SIA>MIA es evidencia de un solo
    sustrato intermedio (31B); la predicción completa del corpus requiere
    ≥70B, y el brazo SIA corrió con menor n que el brazo MIA en esta
@@ -208,4 +213,3 @@ Cada carpeta de `perturbation_h4rev/*/` contiene:
 ---
 
 *Marco Torres Yévenes — EXIS Research Foundation / AXIS Dynamics SpA*
-*Curado 2026-08-14, a partir de `SIA-experiments/fase1/reporte_fase1.md` (cierre 2026-08-13)*
