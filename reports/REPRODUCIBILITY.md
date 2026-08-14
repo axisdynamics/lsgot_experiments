@@ -14,10 +14,16 @@ completo — sin embeddings — reorganizado bajo `static_generic_long/`,
 `perturbation_h4rev/` y `prompts/`. Trae dos manifiestos distintos, con
 alcance distinto:
 
-| Manifest | Alcance | Verificación |
-|----------|---------|--------------|
-| **`reports/MANIFEST.sha256`** | Los 78 archivos que existen *en este repo* (JSON, prompts, scripts, reportes — sin `.npz`) | `sha256sum -c <(grep -vE '^#\|^$' reports/MANIFEST.sha256)` desde la raíz del repo → 78/78 OK |
-| `reports/MANIFEST_gemma4_31b_original.sha256` | Manifest **original** del experimento 31B combinado (51 artefactos, incluidos los 8 `_embeddings.npz` no incluidos aquí) — provisto para trazabilidad de procedencia, con rutas del layout original (`mia/prompts/...`, `results_local/...`), **no** las de este repo | Solo verificable contra el árbol de trabajo original (`SIA-experiments/gemma4_31b_combined/`), no contra este repo |
+| Manifest | Alcance |
+|----------|---------|
+| **`reports/MANIFEST.sha256`** | Los 91 archivos que existen *en este repo* (JSON, prompts, scripts, reportes — sin `.npz`) |
+| `reports/MANIFEST_gemma4_31b_original.sha256` | Manifest **original** del experimento 31B combinado (51 artefactos, incluidos los 8 `_embeddings.npz` no incluidos aquí) — provisto para trazabilidad de procedencia, con rutas del layout original (`mia/prompts/...`, `results_local/...`), **no** las de este repo. Solo verificable contra el árbol de trabajo original (`SIA-experiments/gemma4_31b_combined/`). |
+
+Verificación de `reports/MANIFEST.sha256` (91/91 esperado), desde la raíz del repo:
+
+```bash
+sha256sum -c <(grep -vE '^#|^$' reports/MANIFEST.sha256)
+```
 
 Caché de trayectorias individuales (pod, Network Volume `/workspace/` —
 no incluida en ningún repo, ver §4):
@@ -64,21 +70,27 @@ Todos los hashes verificables contra `reports/MANIFEST.sha256` (§1).
 **Nota metodológica:** la densidad terminológica de los `axis.dna` (~2.3×
 tokens/char vs español común) hace que igualar chars ≠ igualar tokens. El
 emparejamiento de longitud se hizo con el tokenizador real por familia de
-modelo (Gemma4-31B: `verify_tokens.py`; Qwen/DeepSeek: tokenizador 152K
-compartido) — de ahí los dos archivos `generic_long_*` por arquitectura.
+modelo (Gemma4-31B: `scripts/verify_tokens.py`; Qwen/DeepSeek: tokenizador
+152K compartido) — de ahí los dos archivos `generic_long_*` por
+arquitectura. El manifest original (`MANIFEST_gemma4_31b_original.sha256`)
+se generó con `scripts/freeze_manifest.py`, incluido también aquí.
 
 ---
 
 ## 3. Seeds
 
-| Componente | Seed | Fuente |
+Todos los scripts citados aquí están incluidos en este repo (rutas ya
+ajustadas al layout curado) — los números de línea fueron re-verificados
+contra las copias incluidas:
+
+| Componente | Seed | Fuente (en este repo) |
 |------------|------|--------|
-| Permutation test (Wasserstein) | **42** | `shared/statistical_tests.py:20` (`np.random.RandomState(42)`) |
-| Dimensión fractal MLE | **42** | `shared/dimensionality_analyzer.py:132,171` |
-| PCA (silhouette / PC1) | **42** | `shared/analyze_autopoiesis.py:174,193` |
-| Decodificación | determinista (greedy argmax) | `perturbation_extractor.py` / `hidden_state_extractor.py` |
-| Ruido de perturbación H4_rev | **NO sembrado** (ver §4) | `perturbation_extractor.py:166,169` |
-| `_correlation_dimension` | no usado (pipeline usa MLE) | `shared/dimensionality_analyzer.py:51` |
+| Permutation test (Wasserstein) | **42** | `static_generic_long/MIA/gemma4-31b-base_partial/shared/statistical_tests.py:20` (`np.random.RandomState(42)`) |
+| Dimensión fractal MLE | **42** | `static_generic_long/MIA/gemma4-31b-base_partial/shared/dimensionality_analyzer.py:132,171` |
+| PCA (silhouette / PC1) | **42** | `scripts/analyze_dynamics.py:176,195` |
+| Decodificación | determinista (greedy argmax) | `scripts/perturbation_extractor.py` / `scripts/hidden_state_extractor.py` |
+| Ruido de perturbación H4_rev | **NO sembrado** (ver §4) | `scripts/perturbation_extractor.py:166,169` |
+| `_correlation_dimension` | no usado (pipeline usa MLE) | `static_generic_long/MIA/gemma4-31b-base_partial/shared/dimensionality_analyzer.py:51` |
 
 ---
 
@@ -93,7 +105,8 @@ de ε ~ N(0, σ²I), sin fijar semilla por (prompt, grupo, t_inj). Racional:
 2. Las trayectorias extraídas quedan **congeladas vía caché + SHA-256**;
    el análisis siempre parte de los mismos tensores.
 3. Replicar la extracción bit-a-bit requeriría sembrar por clave de caché;
-   si se desea, añadir `torch.manual_seed(hash(key))` en el hook y re-extraer.
+   si se desea, añadir `torch.manual_seed(hash(key))` en `scripts/perturbation_extractor.py`
+   y re-extraer.
 
 Todo lo demás es determinista: decodificación greedy, permutaciones con
 seed 42, MLE con RandomState(42).
@@ -102,14 +115,17 @@ seed 42, MLE con RandomState(42).
 
 ## 5. Cómo re-ejecutar
 
-**Nota:** los comandos de esta sección describen la ejecución original en
-el pod RunPod, sobre el árbol de trabajo del corpus completo
-(`SIA-experiments/gemma4_31b_combined/`) — no sobre este repo curado, que
-no incluye los scripts `run_exp.py`/`run_perturbation.py` de esa corrida
-(sí incluye `static_generic_long/MIA/gemma4-31b-base_partial/analyze_partial.py`,
-usado para el recálculo local de la corrida parcial 31B-base). Se
-conservan aquí como documentación del procedimiento, no como comando
-ejecutable directamente desde esta carpeta.
+**Qué es realmente ejecutable en este repo, y qué no:**
+
+| Script | Ubicación | ¿Corre standalone en este repo? |
+|--------|-----------|----------------------------------|
+| `analyze_partial.py` | `static_generic_long/MIA/gemma4-31b-base_partial/` | **Sus imports sí resuelven** (trae su propio `shared/` con `curvature_analyzer.py`, `graph_builder.py`, `dimensionality_analyzer.py`, `statistical_tests.py`, verificado con `python3 analyze_partial.py`) — **pero falla al buscar `results_fase1/*_embeddings.npz`**, porque este repo excluye embeddings por diseño (ver README). Se incluye para transparencia algorítmica: permite verificar exactamente cómo se calculan Δκ, dimensión fractal, W₁ y p — no para recómputo sin los `.npz` originales. |
+| `scripts/run_exp_mia.py`, `scripts/run_exp_sia.py`, `scripts/run_perturbation.py`, `scripts/perturbation_extractor.py`, `scripts/recovery_analyzer.py`, `scripts/hidden_state_extractor.py`, `scripts/analyze_dynamics.py` | `scripts/` | **No** — requieren GPU, el modelo `google/gemma-4-31B-it` descargado, y las rutas del pod original (`/workspace/...`). Se incluyen íntegros para que las citas de línea de §3/§4 sean verificables y el pipeline sea auditable, no como comando ejecutable desde esta carpeta. |
+
+Los comandos siguientes describen la ejecución **original en el pod
+RunPod**, sobre el árbol de trabajo del corpus completo
+(`SIA-experiments/gemma4_31b_combined/`) — se conservan como documentación
+del procedimiento:
 
 ```bash
 # En el pod RunPod (modelo ya en /workspace/models/gemma-4-31B-it):
@@ -140,6 +156,8 @@ Parámetros de perturbación:
 | E1 (identidad, longitud controlada) | Δκ axis−glong | +0.0233 | **+0.0844** |
 | H4_rev τ (ventaja axis) | t=50/128/200 | -8.1/-1.3/-0.2 | **-6.9/-5.8/-5.3** |
 | H4_rev SampEnΔ axis | t=50/128 | -0.078/-0.045 | **+0.080/+0.093** |
-| Veredicto | — | especificidad sin autopoiesis | **autopoiesis débil** |
+| Veredicto | — | sin reconvergencia activa | **resiliencia post-perturbación dependiente de contenido** |
 
-Detalle completo en `results_local/INTERIM_FINDINGS.md`.
+Detalle completo en `reports/INTERIM_FINDINGS.md` (nota: ese documento usa
+la terminología original de la corrida — ver `README.md` § "Nota sobre
+terminología" para el mapeo a la descripción usada en este repo).

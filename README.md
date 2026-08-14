@@ -23,6 +23,7 @@ cero, ver `reports/REPRODUCIBILITY.md` y los scripts referenciados ahí.
 static_generic_long/   Fase 1 — E1: axis vs generic_long (identidad, longitud EMPAREJADA)
 perturbation_h4rev/    H4_rev — inyección de ruido en hidden states, τ y SampEnΔ
 prompts/                las preguntas (100, ontológicas) + los system prompts de prueba (MIA/SIA)
+scripts/                pipeline original (extracción, perturbación, análisis) citado en REPRODUCIBILITY.md — auditoría, no ejecutable sobre los datos de este repo
 reports/                reporte_fase1.md (síntesis maestra) + hallazgos intermedios 31B
 ```
 
@@ -160,7 +161,12 @@ grupos (`vanilla` se perdió por caída del pod a mitad de extracción,
 agregados porque el pipeline estándar requiere las 4 condiciones; el
 recálculo E1/E2 sobre los 3 grupos disponibles se hizo con el script
 adjunto `analyze_partial.py` (resultados ya transcritos en
-`reports/reporte_fase1.md` §5).
+`reports/reporte_fase1.md` §5). Trae su propio `shared/` (`curvature_analyzer.py`,
+`graph_builder.py`, `dimensionality_analyzer.py`, `statistical_tests.py`)
+para que sus imports resuelvan y el algoritmo sea auditable — pero
+**no corre standalone en este repo**: busca `results_fase1/*_embeddings.npz`,
+que este repo excluye por diseño. Se incluye para transparencia, no para
+recómputo (detalle en `reports/REPRODUCIBILITY.md` §5).
 
 ---
 
@@ -186,11 +192,20 @@ byte-idénticos entre todos los sustratos del panel que los usan:
 - `{MIA,SIA}/generic_assistant.txt` — variante usada solo en los baselines de perturbación 8B/7B, previos al protocolo `generic_long` con longitud emparejada
 - `vanilla.txt` — el baseline histórico ("You are a helpful assistant.", compartido por MIA y SIA)
 
+`scripts/` — el pipeline original que produjo los datos de `perturbation_h4rev/`
+y las citas de seeds de `reports/REPRODUCIBILITY.md` §3-§4: `run_exp_mia.py`,
+`run_exp_sia.py`, `run_perturbation.py`, `perturbation_extractor.py`,
+`recovery_analyzer.py`, `hidden_state_extractor.py`, `analyze_dynamics.py`,
+`verify_tokens.py`, `freeze_manifest.py`. Requieren GPU + el modelo
+descargado + rutas del pod original — incluidos para que el pipeline sea
+auditable línea por línea, no como comando ejecutable desde esta carpeta
+(detalle en `reports/REPRODUCIBILITY.md` §5).
+
 `reports/`:
 - `reporte_fase1.md` — **documento de síntesis maestro**, cierre formal de Fase 1 con las 6 tablas cross-modelo, la corrección metodológica del outlier 8B-base, y la sección de dinámica H4_rev completa.
 - `INTERIM_FINDINGS.md` — hallazgos intermedios del experimento combinado 31B (MIA+SIA+H4_rev) que alimentaron el reporte final.
 - `REPRODUCIBILITY.md` — checksums, seeds y procedimiento de reproducción, con las tablas de hash actualizadas al layout de este repo.
-- `MANIFEST.sha256` — hash de los 78 archivos de este repo (verificable con `sha256sum -c` desde la raíz, ver `REPRODUCIBILITY.md` §1).
+- `MANIFEST.sha256` — hash de los 91 archivos de este repo (verificable con `sha256sum -c` desde la raíz, ver `REPRODUCIBILITY.md` §1).
 - `MANIFEST_gemma4_31b_original.sha256` — manifest original del experimento 31B combinado (incluye los `.npz` no incluidos aquí), conservado para trazabilidad de procedencia.
 
 ---

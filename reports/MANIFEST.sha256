@@ -1,5 +1,5 @@
 # MANIFEST SHA-256 — lsgot_experiments (repo curado)
-# Generado: 2026-08-14 | alcance: static_generic_long/ + perturbation_h4rev/ + prompts/ + reports/
+# Generado: 2026-08-14 | alcance: static_generic_long/ + perturbation_h4rev/ + prompts/ + scripts/ + reports/
 # No incluye embeddings (*_embeddings.npz) — excluidos por diseño.
 
 445a603d829728964536fe5a3e869c00329af1d50f1039691cec1669732d0b0e  ./perturbation_h4rev/MIA/deepseek-r1-7b_L14/details.json
@@ -24,10 +24,19 @@ bcb9b29c1f72495e3881cbb1ee2eec41cf1ad328a1e8c72782eddd556c0fff6a  ./prompts/SIA/
 7641d44b271cb082061a84b93bfce3a44e12cce5099d7e52e82f6a3c56727231  ./prompts/SIA/generic_long_qwen_deepseek.txt
 dd7c0127fdd433c8652ba47511456c6f4bdb964154b427edc16485105890b0df  ./prompts/SIA/generic_short.txt
 75357d685f238b6afd7738be9786fdafde641eb6ca9a3be7471939715a68a4de  ./prompts/vanilla.txt
-5138b8c9dd127494d21343f4d6ad02cdc8648e26e3ed9ea2fd6eca73ebb1259f  ./README.md
+bf44ba2eb68e2ec774c251e19145b9e1508e0407bc2d91042581308e92355f42  ./README.md
 459e6d373400cc0984474ac336ed2e6748eabd81ac4d057554a3c6c0be9ae925  ./reports/INTERIM_FINDINGS.md
 75d0d6be5dbce3a4c279c620910e0e843005b19d9f60fad0ce570488099fa1d0  ./reports/reporte_fase1.md
-dd4b41396ee033f35d7d14b632ed9ade1a829c6a513d4c19f61ce3df8885386f  ./reports/REPRODUCIBILITY.md
+e8768cf59857eb07c39f0d7a2648b1d481ee382153c7d906adf5bf9817ed8872  ./reports/REPRODUCIBILITY.md
+f1b38d435bfd31a8819a7cf028c42429d810c9bfba2033f16826cf0e73d420cb  ./scripts/analyze_dynamics.py
+3a35ec87bcac644dd83ed18dfe0547dc954d7e6d811bd435ef1d44a16eca72bd  ./scripts/freeze_manifest.py
+b7368f272fd461aad36cc83312f6b755c07964312afa6271c0baa313b5918f18  ./scripts/hidden_state_extractor.py
+33ff46333c91d356e3dbbe770fbce1ad812354c0f9e900903814f32fd6448b71  ./scripts/perturbation_extractor.py
+1d2af17613c7cc1bdda72263008db435c97e71503f0a93e859e4706dca606ee4  ./scripts/recovery_analyzer.py
+1828610a2a792fd7a1f9353f3254ad8a64fa90f07517b5a9ae5afce35a9fbb24  ./scripts/run_exp_mia.py
+57263a9b78ef32e940ddf9915d40b1969892cc0da41458d50334d93e0a8e260c  ./scripts/run_exp_sia.py
+1e99669c28311d32daf506c26382c9607837b13a2aa3beb64749cc63975dc83f  ./scripts/run_perturbation.py
+3b83391785a75cec722b601fb5994b849404efe36a595e636507d2b4ba549a37  ./scripts/verify_tokens.py
 f52d220f03a9d0e194745aa1b4d1254702e0ec6c6d18261a84750d50dc81bf09  ./static_generic_long/MIA/deepseek-r1-7b/axis_responses.json
 872282f653896a79338edc7d10cdb4aa3f71c2b291f65bd598dd12946c163318  ./static_generic_long/MIA/deepseek-r1-7b/_dims.json
 ecc7352ed7d75f05c6ea9afe63aab5da77315af61b0630ab8e463a85f720500e  ./static_generic_long/MIA/deepseek-r1-7b/generic_long_responses.json
@@ -40,6 +49,10 @@ f02d4bdb101403c6671f93af70b6ff1d1b54e0a755b8651ff273f2ae3af83048  ./static_gener
 18e307c190d28b355eb064c5e8d31024f13cbcc50507bbd8bf411fb8dae90322  ./static_generic_long/MIA/gemma4-31b-base_partial/axis_responses.json
 48033b36467a6357f2d6fb944b64ba618126051d45bacaaaecd9712e3cea162e  ./static_generic_long/MIA/gemma4-31b-base_partial/generic_long_responses.json
 1b20584abfd94dc7479bc4ce37e85e28e77aba50854a12e842d6e7b397e84c32  ./static_generic_long/MIA/gemma4-31b-base_partial/generic_short_responses.json
+c23b43c3d088f99828fb352780c90913e2ed75a0d85c382df0db2eddd6264b04  ./static_generic_long/MIA/gemma4-31b-base_partial/shared/curvature_analyzer.py
+6fb86d7304ef52374d32e369c34437a28f284e6ac90f99229995120e8bd274f9  ./static_generic_long/MIA/gemma4-31b-base_partial/shared/dimensionality_analyzer.py
+0d9ac0366cfac1f5efb0f9d8cb9d4155387c31974a0905a2f19c7bc58f972bcd  ./static_generic_long/MIA/gemma4-31b-base_partial/shared/graph_builder.py
+d56b39fa1751c0c7c2c2cbe8216abafde3ff1a23bab4eba49bfcb6cae112120f  ./static_generic_long/MIA/gemma4-31b-base_partial/shared/statistical_tests.py
 6a8182e52cf859fa28c5c7b2c57da23c0bdda42752ae02109561397b9743dc70  ./static_generic_long/MIA/gemma4-31b-instruct_full/axis_responses.json
 d65459c6a6a231b3149c99ba1cd97cffcd9f9413a1f2c587807933e23241daff  ./static_generic_long/MIA/gemma4-31b-instruct_full/_dims.json
 ee1a05d0027d8ae93af169015115a3d66d0538a832f89e82e042473fc7390465  ./static_generic_long/MIA/gemma4-31b-instruct_full/generic_long_responses.json
