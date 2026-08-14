@@ -9,19 +9,20 @@
 
 ## 1. Manifest SHA-256
 
-Todos los artefactos del experimento están congelados por hash en
-**`MANIFEST.sha256`** (51 artefactos locales + 1,023 pkls de caché en el pod).
+Este repo (`lsgot_experiments`) es un **subconjunto curado** del corpus
+completo — sin embeddings — reorganizado bajo `static_generic_long/`,
+`perturbation_h4rev/` y `prompts/`. Trae dos manifiestos distintos, con
+alcance distinto:
 
-Verificación local:
+| Manifest | Alcance | Verificación |
+|----------|---------|--------------|
+| **`reports/MANIFEST.sha256`** | Los 78 archivos que existen *en este repo* (JSON, prompts, scripts, reportes — sin `.npz`) | `sha256sum -c <(grep -vE '^#\|^$' reports/MANIFEST.sha256)` desde la raíz del repo → 78/78 OK |
+| `reports/MANIFEST_gemma4_31b_original.sha256` | Manifest **original** del experimento 31B combinado (51 artefactos, incluidos los 8 `_embeddings.npz` no incluidos aquí) — provisto para trazabilidad de procedencia, con rutas del layout original (`mia/prompts/...`, `results_local/...`), **no** las de este repo | Solo verificable contra el árbol de trabajo original (`SIA-experiments/gemma4_31b_combined/`), no contra este repo |
 
-```bash
-cd SIA-experiments/gemma4_31b_combined
-sha256sum -c <(grep -v '^#' MANIFEST.sha256)   # → 51/51 OK
-```
+Caché de trayectorias individuales (pod, Network Volume `/workspace/` —
+no incluida en ningún repo, ver §4):
 
-Caché de trayectorias individuales (pod, Network Volume `/workspace/`):
-
-| Manifest | Archivos | Descripción |
+| Manifest (en el corpus original) | Archivos | Descripción |
 |----------|----------|-------------|
 | `perturbation/cache_mia_L30_medium.manifest.sha256` | 560 | trayectorias MIA (baseline + perturbadas) |
 | `perturbation/cache_sia_L30_medium.manifest.sha256` | 381 | trayectorias SIA (baseline + perturbadas) |
@@ -30,27 +31,41 @@ Caché de trayectorias individuales (pod, Network Volume `/workspace/`):
 descartada por el investigador — sus datos no forman parte del dataset
 congelado. Las trayectorias crudas (pkls) residen en el Network Volume del
 pod; su recuperación es opcional (los .npz locales contienen los mismos
-hidden states en float16 y son los artefactos de análisis congelados).
+hidden states en float16 y son los artefactos de análisis congelados, y a
+su vez fuera del alcance de este repo curado).
 
 ---
 
 ## 2. Prompts versionados
 
-| Artefacto | SHA-256 (prefijo) | Tokens (Gemma4-31B) |
+Rutas en **este repo** (`prompts/`) — idénticas por hash a las usadas en
+los 7 sustratos del panel completo, no solo en el experimento 31B (ver
+`prompts.json`/`axis.dna` verificados byte-idénticos entre
+`exp_deepseek`, `exp_qwen25`, `exp_gemma4_4b-*`, `exp_gemma4_31b-*` y
+`gemma4_31b_combined` en el corpus fuente):
+
+| Artefacto (este repo) | SHA-256 (prefijo) | Tokens (Gemma4-31B) |
 |-----------|-------------------|---------------------|
-| `data/prompts.json` (100 preguntas ontológicas) | `0081e509…` | — |
-| `mia/prompts/axis.dna` (MIA, 5,003 chars) | `7f8a0cea…` | 2,110 |
-| `mia/prompts/generic_long.txt` (control longitud) | `49238a5e…` | 2,105 (Δ=0.2%) |
-| `mia/prompts/generic_short.txt` | `dd7c0127…` | 938 |
-| `sia/prompts/axis.dna` (SIA/VEX, 11,801 chars) | `7e7fb9ea…` | 3,945 |
-| `sia/prompts/generic_long.txt` (control longitud) | `452ed648…` | 3,957 (Δ=0.3%) |
-| `sia/prompts/generic_short.txt` | `dd7c0127…` | 938 |
-| vanilla ("You are a helpful assistant.") | `75357d68…` | 6 |
+| `prompts/data/prompts.json` (100 preguntas ontológicas) | `0081e509…` | — |
+| `prompts/MIA/axis.dna` (MIA, 5,003 chars) | `7f8a0cea…` | 2,110 |
+| `prompts/MIA/generic_long_gemma.txt` (control longitud, familia Gemma4) | `49238a5e…` | 2,105 (Δ=0.2%) |
+| `prompts/MIA/generic_long_qwen_deepseek.txt` (control longitud, familia Qwen/DeepSeek 152K) | — | 2,180 (Δ=0.1%) |
+| `prompts/MIA/generic_short.txt` | `dd7c0127…` | 938 |
+| `prompts/MIA/generic_assistant.txt` (protocolo pre-Fase1, usado solo en baselines de perturbación 8B/7B) | — | — |
+| `prompts/SIA/axis.dna` (SIA/VEX, 11,801 chars) | `7e7fb9ea…` | 3,945 |
+| `prompts/SIA/generic_long_gemma.txt` (control longitud, familia Gemma4) | `452ed648…` | 3,957 (Δ=0.3%) |
+| `prompts/SIA/generic_long_qwen_deepseek.txt` (control longitud, familia Qwen/DeepSeek 152K) | — | 3,820 (Δ=0.0%) |
+| `prompts/SIA/generic_short.txt` | `dd7c0127…` | 938 |
+| `prompts/SIA/generic_assistant.txt` (protocolo pre-Fase1) | — | — |
+| `prompts/vanilla.txt` ("You are a helpful assistant.") | `75357d68…` | 6 |
+
+Todos los hashes verificables contra `reports/MANIFEST.sha256` (§1).
 
 **Nota metodológica:** la densidad terminológica de los `axis.dna` (~2.3×
 tokens/char vs español común) hace que igualar chars ≠ igualar tokens. El
-emparejamiento de longitud se hizo con el tokenizador real (Gemma4-31B:
-`verify_tokens.py`); variantes Qwen/DeepSeek en `prompts/generic_long_qwen_*.txt`.
+emparejamiento de longitud se hizo con el tokenizador real por familia de
+modelo (Gemma4-31B: `verify_tokens.py`; Qwen/DeepSeek: tokenizador 152K
+compartido) — de ahí los dos archivos `generic_long_*` por arquitectura.
 
 ---
 
@@ -86,6 +101,15 @@ seed 42, MLE con RandomState(42).
 ---
 
 ## 5. Cómo re-ejecutar
+
+**Nota:** los comandos de esta sección describen la ejecución original en
+el pod RunPod, sobre el árbol de trabajo del corpus completo
+(`SIA-experiments/gemma4_31b_combined/`) — no sobre este repo curado, que
+no incluye los scripts `run_exp.py`/`run_perturbation.py` de esa corrida
+(sí incluye `static_generic_long/MIA/gemma4-31b-base_partial/analyze_partial.py`,
+usado para el recálculo local de la corrida parcial 31B-base). Se
+conservan aquí como documentación del procedimiento, no como comando
+ejecutable directamente desde esta carpeta.
 
 ```bash
 # En el pod RunPod (modelo ya en /workspace/models/gemma-4-31B-it):

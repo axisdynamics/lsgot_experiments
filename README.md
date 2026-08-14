@@ -22,6 +22,7 @@ cero, ver `reports/REPRODUCIBILITY.md` y los scripts referenciados ahí.
 ```
 static_generic_long/   Fase 1 — E1: axis vs generic_long (identidad, longitud EMPAREJADA)
 perturbation_h4rev/    H4_rev — inyección de ruido en hidden states, τ y SampEnΔ
+prompts/                las preguntas (100, ontológicas) + los system prompts de prueba (MIA/SIA)
 reports/                reporte_fase1.md (síntesis maestra) + hallazgos intermedios 31B
 ```
 
@@ -176,10 +177,21 @@ Cada carpeta de `perturbation_h4rev/*/` contiene:
 - `summary.json` — tabla agregada axis/generic_long(o generic_assistant)/vanilla × t_inj (τ, SampEnΔ, recovery_gap, W₁, displacement_l2)
 - `details.json` — resultado por prompt individual
 
+`prompts/` — las preguntas y los system prompts de prueba, verificados
+byte-idénticos entre todos los sustratos del panel que los usan:
+- `data/prompts.json` — las 100 preguntas ontológicas (identidad, límites, origen, metacognición, axiología, contradicción/estrés, recuperación) usadas en todos los experimentos de este repo
+- `MIA/axis.dna`, `SIA/axis.dna` — el system prompt de identidad por arquitectura (MIA ~5K chars monolítico, SIA ~12K chars VEX modular)
+- `{MIA,SIA}/generic_long_gemma.txt`, `{MIA,SIA}/generic_long_qwen_deepseek.txt` — control de longitud, token-matched a `axis.dna` (±0.3%) por familia de tokenizador — necesarios porque la densidad terminológica del ADN (~2.3× tokens/char) hace que igualar caracteres no sea igualar tokens
+- `{MIA,SIA}/generic_short.txt` — control corto (mismo registro, ~938 tokens)
+- `{MIA,SIA}/generic_assistant.txt` — variante usada solo en los baselines de perturbación 8B/7B, previos al protocolo `generic_long` con longitud emparejada
+- `vanilla.txt` — el baseline histórico ("You are a helpful assistant.", compartido por MIA y SIA)
+
 `reports/`:
 - `reporte_fase1.md` — **documento de síntesis maestro**, cierre formal de Fase 1 con las 6 tablas cross-modelo, la corrección metodológica del outlier 8B-base, y la sección de dinámica H4_rev completa.
 - `INTERIM_FINDINGS.md` — hallazgos intermedios del experimento combinado 31B (MIA+SIA+H4_rev) que alimentaron el reporte final.
-- `REPRODUCIBILITY.md` — checksums y procedimiento de reproducción de la corrida 31B.
+- `REPRODUCIBILITY.md` — checksums, seeds y procedimiento de reproducción, con las tablas de hash actualizadas al layout de este repo.
+- `MANIFEST.sha256` — hash de los 78 archivos de este repo (verificable con `sha256sum -c` desde la raíz, ver `REPRODUCIBILITY.md` §1).
+- `MANIFEST_gemma4_31b_original.sha256` — manifest original del experimento 31B combinado (incluye los `.npz` no incluidos aquí), conservado para trazabilidad de procedencia.
 
 ---
 
