@@ -11,6 +11,27 @@ primer paso de generación).
 
 ---
 
+## 0. Convención de v₁ usada aquí — importante, no es la única posible
+
+Todo este reporte usa `embeddings[:, 0, :]` como v₁ — la última posición del
+*prompt*, capturada **antes** de que exista el token 1 (confirmado en
+`hidden_state_extractor.py`: en `step=0`, `current_ids=input_ids` es el
+prompt completo; el hidden state se captura antes del `argmax` que decide
+el token 1). Es la convención **PRE-token** en la terminología de
+`LSGOT_v4/evidence/REPORTE_FASE0.md` §1C.
+
+Esa misma auditoría corrió el control definitivo de token forzado sobre
+este mismo par (`gemma-it`/`gemma-base`) y encontró que bajo la lectura
+alternativa, **POST-token** (estado del primer token ya generado), la
+inversión de norma se **revierte** (con token constante, axis 298.1 >
+vanilla 178.8 en gemma-it, d=+9.4 — contrario a lo que muestra §1 abajo).
+Para v₁ pre-token el control es estructuralmente trivial (causalmente
+inmune al token, no hace falta repetirlo); para v₁ post-token, el signo
+completo de Δ_norm se invierte. Cualquier cita de este reporte debe
+aclarar que es la lectura pre-token — no es intercambiable con la
+post-token sin volver a correr el análisis sobre `h_post`, no sobre
+`embeddings[:,0,:]`.
+
 ## 1. E1 — Δ_norm(axis, generic_long): resultado limpio, y confirma la predicción central
 
 | Modelo | Δ_norm | perm. p | Mann-Whitney p | Cohen's d |
