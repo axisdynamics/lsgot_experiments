@@ -65,6 +65,13 @@ paper alrededor de esta pregunta.
 
 ## 3. E2 — r = W₁_angular/W₁_euclidean: resultado computado, con un defecto de escala que hay que corregir antes de usarlo
 
+> **Actualización — ver `EXP03_REPORT.md`:** la razón cruda de esta
+> sección quedó normalizada contra un piso de ruido split-half, y **el
+> orden entre base e instruct se invierte** una vez corregido el
+> desajuste de escala. Los números de esta sección (§3) están acá por
+> transparencia del proceso, no como resultado final — usar
+> `EXP03_REPORT.md` para cualquier cita.
+
 | Modelo | r | IC 95% (bootstrap) | W₁ angular (rad) | W₁ euclidiano |
 |---|---|---|---|---|
 | base | 0.00713 | [0.00696, 0.00730] | 0.706 | 99.01 |
@@ -105,9 +112,10 @@ explícita, y no como una tabla lista para el paper.
 
 - [x] Baselines simples sobre Δ_norm — **corrido**, Gemma 8B: baselines
   ganan en base, Δ_norm domina en instruct (§2)
-- [ ] Baselines/piso de ruido sobre r — r está computado (§3) pero
-  **necesita normalización split-half (Exp. 0.3) antes de ser
-  interpretable**; no cerrar este ítem todavía
+- [x] Piso de ruido split-half sobre r — corrido en `EXP03_REPORT.md`:
+  **el resultado se invierte** una vez normalizado (`r(instruct) >
+  r(base)`, no al revés) — ver ese reporte, no lo repito acá para no
+  duplicar un número que ya quedó obsoleto en cuanto se corrigió
 - [x] Δ_norm(instruct) − Δ_norm(base): signo correcto (1/5 pares
   disponibles, no alcanza el test de signos con n=1)
 

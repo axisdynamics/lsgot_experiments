@@ -161,7 +161,7 @@ tal cual la guía indica, no hay nada que recalcular hasta tener más pares.
 
 **Justificación de método**
 - [x] Baselines simples sobre `Δ_norm` — **corrido**, Gemma 8B (`EXP02_REPORT.md` §2): en `base` los baselines (centroide, MMD, probe) ganan claramente y Δ_norm apenas roza significancia; en `instruct` Δ_norm por sí solo iguala o supera a los baselines — patrón consistente con el título de la v3, no generalizable con n=1
-- [ ] `r` computado (`EXP02_REPORT.md` §3) pero **no interpretable en valor absoluto todavía** — desajuste de escala entre W₁ angular (acotado en [0,π]) y W₁ euclidiano crudo; falta normalizar cada uno contra su piso split-half (Exp. 0.3) antes de usarlo en cualquier tabla. La única lectura válida hoy es que `r(base) > r(instruct)` con IC bootstrap sin solape — dirección consistente con la predicción, magnitud absoluta no
+- [x] `r` normalizado contra piso de ruido split-half (`EXP03_REPORT.md`) — resuelto metodológicamente. **El resultado se invierte respecto de la razón cruda: `r_normalizado(instruct)=1.11 > r_normalizado(base)=0.97`**, lo opuesto al orden `base > instruct` que sugería el número sin normalizar y a la predicción de la guía. En este único par, instruction tuning no relocaliza la señal de dirección a magnitud — amplifica ambos canales, el euclidiano mucho más en términos absolutos (Δ_norm) pero sin que el angular retroceda relativo a su propio ruido. No comprometer el título/abstract de Fase 5 con el framing "dirección→magnitud" sin un segundo par que lo sostenga
 - [x] Claim de novedad de Δκ/curvatura ya suavizado — resuelto en `LSGOT_v4`, aplica igual acá
 
 **Diseño**

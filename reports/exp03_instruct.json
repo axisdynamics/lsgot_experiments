@@ -1,0 +1,25 @@
+{
+  "label": "instruct",
+  "n_axis": 20,
+  "n_vanilla": 20,
+  "n_null_splits": 1000,
+  "w1_euclidean": {
+    "observed": 198.37265406980433,
+    "null_median": 82.54497343465371,
+    "null_mean": 85.78713439288279,
+    "null_std": 11.726476823718244,
+    "percentile_of_null": 100.0,
+    "multiple_of_null_median": 2.403206952714631
+  },
+  "w1_angular": {
+    "observed": 1.2419028486699546,
+    "null_median": 0.4643999927318718,
+    "null_mean": 0.48040197659565453,
+    "null_std": 0.07408107062577081,
+    "percentile_of_null": 100.0,
+    "multiple_of_null_median": 2.6742094489803008
+  },
+  "r_raw_unnormalized": 0.006260453863933019,
+  "r_normalized_by_own_null_median": 1.1127670240632206,
+  "note": "r_normalized = (W1_eucl_obs / mediana_null_eucl) dividido por (W1_ang_obs / mediana_null_ang) -- ambos numerador y denominador son adimensionales (multiplos de su propio piso de ruido), resuelve el desajuste de unidades radianes-vs-euclidiano crudo de exp02_baselines_norm_r.py."
+}
