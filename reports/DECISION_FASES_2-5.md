@@ -160,8 +160,8 @@ tal cual la guía indica, no hay nada que recalcular hasta tener más pares.
 - [ ] Cuantización — no se usó en las corridas hechas hasta ahora (verificado por diseño, sin necesidad de control adicional)
 
 **Justificación de método**
-- [ ] Baselines simples sobre `Δ_norm`/`r` — **no corrido**, distinto del Δκ ya auditado (§2 arriba)
-- [ ] Piso de ruido split-half para `Δ_norm`/`r` — mismo caso, no corrido para estos dos estadísticos específicamente (sí existe para Δκ)
+- [x] Baselines simples sobre `Δ_norm` — **corrido**, Gemma 8B (`EXP02_REPORT.md` §2): en `base` los baselines (centroide, MMD, probe) ganan claramente y Δ_norm apenas roza significancia; en `instruct` Δ_norm por sí solo iguala o supera a los baselines — patrón consistente con el título de la v3, no generalizable con n=1
+- [ ] `r` computado (`EXP02_REPORT.md` §3) pero **no interpretable en valor absoluto todavía** — desajuste de escala entre W₁ angular (acotado en [0,π]) y W₁ euclidiano crudo; falta normalizar cada uno contra su piso split-half (Exp. 0.3) antes de usarlo en cualquier tabla. La única lectura válida hoy es que `r(base) > r(instruct)` con IC bootstrap sin solape — dirección consistente con la predicción, magnitud absoluta no
 - [x] Claim de novedad de Δκ/curvatura ya suavizado — resuelto en `LSGOT_v4`, aplica igual acá
 
 **Diseño**

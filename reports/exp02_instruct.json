@@ -1,0 +1,48 @@
+{
+  "label": "instruct",
+  "n_axis": 20,
+  "n_generic_long": 20,
+  "n_vanilla": 20,
+  "E1_delta_norm": {
+    "delta_norm": -78.42214024003289,
+    "perm_p": 0.000999000999000999,
+    "cohens_d": -5.453455788190974,
+    "mannwhitney_U": 0.0,
+    "mannwhitney_p": 6.795615128173358e-08,
+    "mean_norm_axis": 138.09485863506814,
+    "mean_norm_generic_long": 216.51699887510102
+  },
+  "E2_r_direction_vs_magnitude": {
+    "r": 0.006260453863933019,
+    "r_bootstrap_95ci": [
+      0.006075587482736861,
+      0.006434515932814065
+    ],
+    "r_bootstrap_std": 9.460552753972347e-05,
+    "w1_angular_rad": 1.2419028486699546,
+    "w1_euclidean": 198.37265406980433,
+    "note": "axis vs vanilla, no axis vs generic_long -- coincide con la definicion E2 de la guia"
+  },
+  "baselines_axis_vs_generic_long": {
+    "centroid_distance": {
+      "value": 184.72922461060136,
+      "perm_p": 0.000999000999000999
+    },
+    "mmd_rbf": {
+      "value": 0.6365805772313697,
+      "perm_p": 0.000999000999000999
+    },
+    "linear_cka": {
+      "value": 0.37683336524254724,
+      "note": "pareado, mismos 20 prompts en ambas condiciones"
+    },
+    "linear_probe_auc": {
+      "value": 1.0,
+      "cv": "GroupKFold por prompt"
+    },
+    "mannwhitney_norm": {
+      "U": 0.0,
+      "p": 6.795615128173358e-08
+    }
+  }
+}
